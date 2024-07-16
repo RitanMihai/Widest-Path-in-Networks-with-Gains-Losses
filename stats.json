@@ -1,0 +1,130 @@
+[
+    {
+        "nodes": 1000,
+        "paths": 10,
+        "avg_edges": 502399.0,
+        "average_time_alg1": 0.09336749999783933,
+        "average_time_alg2": 0.1831248999806121,
+        "probability": 0.5
+    },
+    {
+        "nodes": 1000,
+        "paths": 10,
+        "avg_edges": 699519.0,
+        "average_time_alg1": 0.1454029000014998,
+        "average_time_alg2": 0.2509297000069637,
+        "probability": 0.7
+    },
+    {
+        "nodes": 1000,
+        "paths": 10,
+        "avg_edges": 896522.0,
+        "average_time_alg1": 0.16684950000490062,
+        "average_time_alg2": 0.3208556000026874,
+        "probability": 0.9
+    },
+    {
+        "nodes": 2000,
+        "paths": 10,
+        "avg_edges": 417570.0,
+        "average_time_alg1": 0.08238989999517798,
+        "average_time_alg2": 0.16066610001144,
+        "probability": 0.1
+    },
+    {
+        "nodes": 2000,
+        "paths": 10,
+        "avg_edges": 615142.0,
+        "average_time_alg1": 0.19636200001696125,
+        "average_time_alg2": 0.2418628000013996,
+        "probability": 0.15
+    },
+    {
+        "nodes": 2000,
+        "paths": 10,
+        "avg_edges": 2402249.0,
+        "average_time_alg1": 0.7472393999923952,
+        "average_time_alg2": 0.9098188000207301,
+        "probability": 0.6
+    },
+    {
+        "nodes": 2000,
+        "paths": 10,
+        "avg_edges": 2401229.0,
+        "average_time_alg1": 1.0418493000033777,
+        "average_time_alg2": 0.8672446999989916,
+        "probability": 0.6
+    },
+    {
+        "nodes": 5000,
+        "paths": 10,
+        "avg_edges": 2541869.0,
+        "average_time_alg1": 0.4836341999762226,
+        "average_time_alg2": 1.0960259000130463,
+        "probability": 0.1
+    },
+    {
+        "nodes": 5000,
+        "paths": 10,
+        "avg_edges": 5033546.0,
+        "average_time_alg1": 0.8764533000066876,
+        "average_time_alg2": 2.154375299985986,
+        "probability": 0.2
+    },
+    {
+        "nodes": 5000,
+        "paths": 10,
+        "avg_edges": 7526717.0,
+        "average_time_alg1": 1.8186003000009805,
+        "average_time_alg2": 3.153088299994124,
+        "probability": 0.3
+    },
+    {
+        "nodes": 10000,
+        "paths": 10,
+        "avg_edges": 15069899.0,
+        "average_time_alg1": 7.833593999996083,
+        "average_time_alg2": 6.729309399990598,
+        "probability": 0.15
+    },
+    {
+        "nodes": 10000,
+        "paths": 10,
+        "avg_edges": 30051123.0,
+        "average_time_alg1": 6.97420119997696,
+        "average_time_alg2": 12.478544600016903,
+        "probability": 0.3
+    },
+    {
+        "nodes": 10000,
+        "paths": 10,
+        "avg_edges": 50031362.0,
+        "average_time_alg1": 11.791635500005214,
+        "average_time_alg2": 22.55191099998774,
+        "probability": 0.5
+    },
+    {
+        "nodes": 15000,
+        "paths": 10,
+        "avg_edges": 33861910.0,
+        "average_time_alg1": 14.536505500000203,
+        "average_time_alg2": 14.378192999982275,
+        "probability": 0.15
+    },
+    {
+        "nodes": 20000,
+        "paths": 10,
+        "avg_edges": 60149311.0,
+        "average_time_alg1": 18.072751600004267,
+        "average_time_alg2": 31.357023400021717,
+        "probability": 0.15
+    },
+    {
+        "nodes": 25000,
+        "paths": 10,
+        "avg_edges": 93944399.0,
+        "average_time_alg1": 78.06360250001308,
+        "average_time_alg2": 79.98291510000126,
+        "probability": 0.15
+    }
+]
