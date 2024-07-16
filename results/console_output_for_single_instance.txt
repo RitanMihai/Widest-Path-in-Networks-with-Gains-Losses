@@ -1,0 +1,16 @@
+Experiment 1/1 for config (nodes: 1000, paths: 10, edges: 502881, prob: 0.5) - Time: 0.10695409998879768s
+Experiment 1/1 for config (nodes: 1000, paths: 10, edges: 700174, prob: 0.7) - Time: 0.13324910000665113s
+Experiment 1/1 for config (nodes: 1000, paths: 10, edges: 896236, prob: 0.9) - Time: 0.1550676999904681s
+Experiment 1/1 for config (nodes: 2000, paths: 10, edges: 417443, prob: 0.1) - Time: 0.3077032000001054s
+Experiment 1/1 for config (nodes: 2000, paths: 10, edges: 615156, prob: 0.15) - Time: 0.1053352999733761s
+Experiment 1/1 for config (nodes: 2000, paths: 10, edges: 2402095, prob: 0.6) - Time: 0.872058199980529s
+Experiment 1/1 for config (nodes: 2000, paths: 10, edges: 2402886, prob: 0.6) - Time: 0.9700526000233367s
+Experiment 1/1 for config (nodes: 5000, paths: 10, edges: 2541484, prob: 0.1) - Time: 0.4375298000231851s
+Experiment 1/1 for config (nodes: 5000, paths: 10, edges: 5037864, prob: 0.2) - Time: 2.1743036000116263s
+Experiment 1/1 for config (nodes: 5000, paths: 10, edges: 7523587, prob: 0.3) - Time: 1.6404241000127513s
+Experiment 1/1 for config (nodes: 10000, paths: 10, edges: 15074980, prob: 0.15) - Time: 5.00023250002414s
+Experiment 1/1 for config (nodes: 10000, paths: 10, edges: 30059197, prob: 0.3) - Time: 16.234272100002272s
+Experiment 1/1 for config (nodes: 10000, paths: 10, edges: 50018865, prob: 0.5) - Time: 24.78525859999354s
+Experiment 1/1 for config (nodes: 15000, paths: 10, edges: 33860228, prob: 0.15) - Time: 12.3063167000073s
+Experiment 1/1 for config (nodes: 20000, paths: 10, edges: 60163409, prob: 0.15) - Time: 54.122659500018926s
+Experiment 1/1 for config (nodes: 25000, paths: 10, edges: 93955974, prob: 0.15) - Time: 154.44818159998977s

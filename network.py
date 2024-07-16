@@ -1,6 +1,7 @@
+import heapq
 import math
 import random
-
+from numpy import inf
 import networkx as nx
 from matplotlib import pyplot as plt
 
@@ -12,7 +13,7 @@ class Network:
         self.sink = None
 
     # TODO: Take in consideration to add Cycles
-    def generate_random_graph(self, num_nodes, probability=0.5, num_paths=2):
+    def generate_random_graph(self, num_nodes, probability=0.5, num_paths=2, is_fast_generator=False):
         """
         :param num_nodes: Total number of paths
         :param probability: Probability of generate an arc
@@ -20,13 +21,17 @@ class Network:
                           Can add new arcs in order to build a valid directed path.
                           The number of arcs exiting the source would be 1 <= source out <= num_paths
                           The number of arcs entering the sink would be 1 <= sink in <= num_paths
+        :param is_fast_generator: use the fast version of the build in generator
         :return: void
         """
         if num_paths < 1:
             raise ValueError("Invalid number of paths given! There should be at least one valid path")
 
         # https://networkx.org/documentation/stable/reference/generated/networkx.generators.random_graphs.erdos_renyi_graph.html
-        self.graph = nx.erdos_renyi_graph(n=num_nodes-2, p=probability, directed=True)
+        if is_fast_generator:
+            self.graph = nx.fast_gnp_random_graph(n=num_nodes-2, p=probability, directed=True)
+        else:
+            self.graph = nx.erdos_renyi_graph(n=num_nodes-2, p=probability, directed=True)
 
         self.source = "S"
         self.sink = "T"
@@ -127,3 +132,63 @@ class Network:
                 self.graph.add_edge(self.source, v, length=artificial_arc, capacity=self.graph[u][v]['capacity'], loss=self.graph[u][v]['loss'],
                            path_so_far=sp[:sp.index(v) + 1])
                 self.graph.remove_edge(u, v)
+    def algorithm1_parallel(self):
+        for u, v, data in self.graph.edges(data=True):
+            if u == self.source:
+                data['length'] = -math.log(data['loss'] * data['capacity'])
+            else:
+                data['length'] = -math.log(data['loss'])
+
+        while True:
+            sp = nx.shortest_path(self.graph, source=self.source, target=self.sink, weight='length')
+
+            # Most Saturated Arc
+            capacities = {(u, v): self.graph[u][v]['capacity'] for u, v in zip(sp[:-1], sp[1:])}
+            saturated_arc = min(capacities, key=capacities.get)
+
+            if saturated_arc[0] == self.source:
+                # Combine the stored path on the artificial arc with the rest of the path
+                stored_path = self.graph[saturated_arc[0]][saturated_arc[1]].get('path_so_far', [])
+                full_path = stored_path + sp[sp.index(saturated_arc[1]) + 1:]
+                return full_path
+            else:
+                u, v = saturated_arc
+                artificial_arc = -math.log(self.graph[u][v]['capacity'] * self.graph[u][v]['loss'])
+                self.graph.add_edge(self.source, v, length=artificial_arc, capacity=self.graph[u][v]['capacity'], loss=self.graph[u][v]['loss'],
+                           path_so_far=sp[:sp.index(v) + 1])
+                self.graph.remove_edge(u, v)
+
+    def algorithm2_heapq(self):
+        # Priority queue to hold (-distance, node) tuples (negative distance for max-heap behavior)
+        priority_queue = [(-float('inf'), "S")]
+        # Dictionary to hold the shortest path distances to each node, initialized to 0
+        shortest_distances = {node: 0 for node in self.graph.nodes}
+        # Initialize source node distance to infinity
+        shortest_distances["S"] = float('inf')
+        # Dictionary to hold the shortest path to each node
+        shortest_paths = {node: [] for node in self.graph.nodes}
+        shortest_paths["S"] = ["S"]
+
+        while priority_queue:
+            current_distance, current_node = heapq.heappop(priority_queue)
+            current_distance = -current_distance
+
+            # If the popped node has a distance smaller than the currently known shortest, skip it
+            if current_distance < shortest_distances[current_node]:
+                continue
+
+            # Explore neighbors
+            for neighbor in self.graph.neighbors(current_node):
+                edge_data = self.graph[current_node][neighbor]
+                capacity = edge_data['capacity']
+                loss = edge_data['loss']
+                distance = loss * min(capacity, current_distance)
+
+                # If found a shorter path to the neighbor
+                if distance > shortest_distances[neighbor]:
+                    shortest_distances[neighbor] = distance
+                    heapq.heappush(priority_queue, (-distance, neighbor))
+                    shortest_paths[neighbor] = shortest_paths[current_node] + [neighbor]
+
+        return shortest_distances, shortest_paths
+
