@@ -58,7 +58,7 @@ def run_experiments():
             network.generate_random_graph(num_nodes=no_nodes, probability=prob, num_paths=no_paths, is_fast_generator=True)
 
             start_time = time.perf_counter()
-            network.algorithm1()
+            network.algorithm1_parallel()
             end_time = time.perf_counter()
             total_time = end_time - start_time
 
@@ -137,7 +137,7 @@ if __name__ == '__main__':
                 print(f"Time to generate:{total_time_gen}")
 
                 start_time = time.perf_counter()
-                print(f"Alg1 path: {network.algorithm1()}")
+                print(f"Alg1 path: {network.algorithm1_parallel()}")
                 end_time = time.perf_counter()
                 total_time = end_time - start_time
                 print(f"Alg. time:{total_time_gen}")
@@ -146,18 +146,18 @@ if __name__ == '__main__':
                 network.generate_paper_graph()
                 print(network.algorithm1())
                 # Arrange the graph as presented in the paper
-                pos = {
-                    "S": (0, 1),
-                    2: (1, 2),
-                    3: (1, 1),
-                    4: (1, 0),
-                    5: (2, 1),
-                    6: (3, 2),
-                    7: (3, 0),
-                    "T": (4, 1)
-                }
+                #pos = {
+                #    "S": (0, 1),
+                #    2: (1, 2),
+                #    3: (1, 1),
+                #    4: (1, 0),
+                #    5: (2, 1),
+                #    6: (3, 2),
+                #    7: (3, 0),
+                #    "T": (4, 1)
+                #}
 
-                network.draw_graph(position=pos)
+                #network.draw_graph(position=pos)
             case '3':
                 run_experiments()
             case '4':

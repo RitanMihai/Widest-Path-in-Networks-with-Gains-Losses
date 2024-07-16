@@ -1,10 +1,9 @@
 import heapq
 import math
 import random
-from numpy import inf
 import networkx as nx
 from matplotlib import pyplot as plt
-
+import nx_cugraph as nxcg
 
 class Network:
     def __init__(self):
@@ -132,15 +131,39 @@ class Network:
                 self.graph.add_edge(self.source, v, length=artificial_arc, capacity=self.graph[u][v]['capacity'], loss=self.graph[u][v]['loss'],
                            path_so_far=sp[:sp.index(v) + 1])
                 self.graph.remove_edge(u, v)
+
+    def shift_to_positive(self):
+        """ Shift arcs lengths to positive """
+        # Find the minimum weight in the graph
+        # O(arcs exiting the arcs)
+        min_weight = float('inf')
+        for u, v, data in self.graph.out_edges(self.source, data=True):
+            if data['length'] < min_weight:
+                min_weight = data['length']
+
+        # If the minimum weight is already positive, no need to adjust
+        if min_weight > 0:
+            return
+
+        shift_value = -min_weight + 1
+        # O(V+E)
+        for u, v, data in self.graph.edges(data=True):
+            self.graph[u][v]['length'] =  self.graph[u][v]['length'] + shift_value
+
+        return shift_value
+
     def algorithm1_parallel(self):
+        """ nxcg does not work with negative values, so we shift the values from negative to positive """
         for u, v, data in self.graph.edges(data=True):
             if u == self.source:
                 data['length'] = -math.log(data['loss'] * data['capacity'])
             else:
                 data['length'] = -math.log(data['loss'])
 
+        shift_value = self.shift_to_positive()
+
         while True:
-            sp = nx.shortest_path(self.graph, source=self.source, target=self.sink, weight='length')
+            sp = nxcg.shortest_path(self.graph, source=self.source, target=self.sink, weight='length')
 
             # Most Saturated Arc
             capacities = {(u, v): self.graph[u][v]['capacity'] for u, v in zip(sp[:-1], sp[1:])}
@@ -154,9 +177,11 @@ class Network:
             else:
                 u, v = saturated_arc
                 artificial_arc = -math.log(self.graph[u][v]['capacity'] * self.graph[u][v]['loss'])
+                artificial_arc = artificial_arc + shift_value
                 self.graph.add_edge(self.source, v, length=artificial_arc, capacity=self.graph[u][v]['capacity'], loss=self.graph[u][v]['loss'],
                            path_so_far=sp[:sp.index(v) + 1])
                 self.graph.remove_edge(u, v)
+
 
     def algorithm2_heapq(self):
         # Priority queue to hold (-distance, node) tuples (negative distance for max-heap behavior)
